@@ -19,13 +19,13 @@ public class BookingTools {
     this.assistantService = assistantService;
   }
 
-  @Tool
-  public Booking getBookingDetails(String bookingNumber, String customerName, String customerSurname) {
-    return assistantService.getBookingDetails(bookingNumber, customerName, customerSurname);
-  }
+//  @Tool
+//  public Booking getBookingDetails(String bookingNumber, String customerName, String customerSurname) {
+//    return assistantService.getBookingDetails(bookingNumber, customerName, customerSurname);
+//  }
 
-  @Tool
-  public void cancelBooking(String bookingNumber, String customerName, String customerSurname) {
-    assistantService.cancelBooking(bookingNumber, customerName, customerSurname);
-  }
+//  @Tool
+//  public void cancelBooking(String bookingNumber, String customerName, String customerSurname) {
+//    assistantService.cancelBooking(bookingNumber, customerName, customerSurname);
+//  }
 }

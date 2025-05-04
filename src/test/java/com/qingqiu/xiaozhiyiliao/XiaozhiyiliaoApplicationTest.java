@@ -7,6 +7,7 @@ import dev.langchain4j.data.message.ImageContent.DetailLevel;
 import dev.langchain4j.data.message.SystemMessage;
 import dev.langchain4j.data.message.TextContent;
 import dev.langchain4j.data.message.UserMessage;
+import dev.langchain4j.http.client.spring.restclient.SpringRestClientBuilder;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
@@ -16,6 +17,7 @@ import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.MemoryId;
 import jakarta.annotation.Resource;
+import java.time.Duration;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,15 +29,19 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 
 @Slf4j
-@SpringBootTest
 class XiaozhiyiliaoApplicationTest {
 
-  static String apiKey = System.getenv("LANG_CHAIN_4J_AI_KEY");
 
+  static String apiKey = System.getenv("AI_KEY");
+
+//  OpenAiChatModel的构建依赖于langchain4j框架的HTTP客户端。框架会尝试加载一个默认的HTTP客户端，
+//  但由于存在多个实现类（JdkHttpClientBuilderFactory和 SpringRestClientBuilderFactory），框架无法自动选择，因此显式指定客户端
   @Resource
   OpenAiChatModel model = OpenAiChatModel.builder()
       .apiKey(apiKey)
-      .modelName("gpt-4o-mini")
+      .httpClientBuilder(new SpringRestClientBuilder())
+      .modelName("qwen-plus")
+      .timeout(Duration.ofSeconds(60))
       .build();
 
   @Test
@@ -61,7 +67,7 @@ class XiaozhiyiliaoApplicationTest {
   public void test3(){
     UserMessage userMessage = UserMessage.from(
         TextContent.from("Describe the following image"),
-        ImageContent.from("https://ts1.tc.mm.bing.net/th/id/OIP-C.dkkJHo-dkLIlvkGnGOCk-QHaHY?w=175&h=185&c=8&rs=1&qlt=90&o=6&dpr=2&pid=3.1&rm=2",DetailLevel.HIGH);
+        ImageContent.from("https://ts1.tc.mm.bing.net/th/id/OIP-C.dkkJHo-dkLIlvkGnGOCk-QHaHY?w=175&h=185&c=8&rs=1&qlt=90&o=6&dpr=2&pid=3.1&rm=2",DetailLevel.HIGH)
     );
     ChatResponse response = model.chat(userMessage);
     log.info("{}",response.toString());

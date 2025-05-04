@@ -26,13 +26,13 @@ public class ChatController {
   AssistantService assistantService;
 
   @GetMapping("/chatModel")
-  public String chatModel(@RequestParam String message) {
+  public String chatModel(@RequestParam(value = "message") String message) {
     return chatModel.chat(message);
   }
 
 
   @GetMapping("/chatAssistant")
-  public String chatAssistant(@RequestParam String message) {
+  public String chatAssistant(@RequestParam(value = "message") String message) {
     return assistantService.chat(message);
   }
 
