@@ -21,7 +21,7 @@ public class PersistentChatMemoryStore implements ChatMemoryStore {
 
 
 //  private final DB db = DBMaker.fileDB("chat-memory.db").transactionEnable().make();
-//private final Map<Integer, String> map = db.hashMap("messages", INTEGER, STRING).createOrOpen();
+//  private final Map<Integer, String> map = db.hashMap("messages", INTEGER, STRING).createOrOpen();
 //  private final Map<String, String> map = db.hashMap("messages", STRING, STRING).createOrOpen();
 
   @Override

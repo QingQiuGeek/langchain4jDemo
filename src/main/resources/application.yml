@@ -2,14 +2,24 @@ server:
   port: 8080
 
 langchain4j:
-  open-ai:
-    chat-model:
-      api-key: ${AI_KEY:}
-      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
-      log-requests: true
-      log-responses: true
-      model-name: qwen-plus
+  #如果采用open-ai的方式，则需要配置base-url      langchain4j-open-ai-spring-boot-starter
+#  open-ai:
+#    chat-model:
+#      api-key: ${AI_KEY:sk-e22577e8a0b54ac0bbba6c9ad234bdde}
+#      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+#      log-requests: true
+#      log-responses: true
+#      model-name: qwen-plus
 #      timeout: 3000
+
+  #如果采用community的方式，则不需要配置base-url    langchain4j-community-dashscope-spring-boot-starter
+  community:
+    dashscope:
+      chat-model:
+        api-key: ${AI_KEY:}
+        model-name: qwen-plus
+        enable-search: true
+
 logging:
   level:
     root:
